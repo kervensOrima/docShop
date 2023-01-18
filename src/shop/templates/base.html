@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+{% load tailwind_tags %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+    {% tailwind_css %}
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+</head>
+<body>
+
+<h1 class="text-3xl font-bold text-green-400 ">
+    La boutique de OK Fresh up
+</h1>
+
+<nav>
+    <a href="{% url 'store:index' %}">Products</a>
+    &nbsp;
+    &nbsp;
+
+    {% if not user.is_authenticated %}
+    <a href="{% url 'accounts:sign_up' %}">Sing up</a>
+    &nbsp;
+    &nbsp;
+    <a href="{% url 'accounts:sign_in' %}">se connecter</a>
+    {% else %}
+    <span>{{ user.username }} {{ user.email }}</span>
+    <a href="{% url 'accounts:logout' %}">
+        Déconnexion
+    </a>
+    {% endif %}
+    {% if user.cart %}
+    <p>
+        <a href="{% url 'store:cart' %}">
+            Voir le panier ( {{ user.cart.orders.count }} ) articles
+        </a>
+    </p>
+    {% endif %}
+
+</nav>
+
+<div class="container-fluid">
+    {% block main %}
+
+    {% endblock %}
+</div>
+
+
+<footer>
+    {% block footer %}
+
+    {% endblock %}
+</footer>
+
+</body>
+</html>

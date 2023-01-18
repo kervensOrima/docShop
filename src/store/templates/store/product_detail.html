@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block main %}
+<h2>{{ product.name }}</h2>
+<img alt="{{ product.name }}"
+     height="120"
+     src="{{ product.thumbnail.url}}"
+     width="120">
+<p>Price {{ product.price }}$ </p>
+<p>{{ product.stock }} en stock </p>
+<p>Description {{ product.description }}</p>
+{% if user.is_authenticated %}
+<p>
+    <a href="{% url 'store:add_to_cart' slug=product.slug %}">
+        Ajouter au panier
+    </a>
+    &nbsp;
+    &nbsp;
+    <a href="{% url 'store:cart' %}">
+        Consulter mon panier
+    </a>
+</p>
+{% endif %}
+{% endblock %}
+

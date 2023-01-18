@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block main %}
+<h2>La liste des articles au panier de {{ cart.user.username }}</h2>
+{% for order in cart.orders.all %}
+<h3> {{ product.name }} </h3>
+<img alt="{{ order.product.name }}" height="120" src="{{ order.product.thumbnail.url}}"
+     width="120">
+<p>{{ order.quantity }} {{ order.product.name }} en stock</p>
+<p>
+    <a href="{% url 'store:product_detail' slug=order.product.slug %}">Voir plus</a>
+</p>
+<p>
+    <a href="{% url 'store:cart_delete' %}" onclick="return confirm('Etes-vous sure de vouloir vider le panier?')">Vider
+        le panier</a>
+</p>
+{% endfor %}
+{% endblock %}

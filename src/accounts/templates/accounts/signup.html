@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<h2>Sign up</h2>
+{% if username_error %}
+<div class="alert alert-warning">
+    {{ username_error }}
+</div>
+{% endif %}
+<form action="{% url 'accounts:sign_up' %}" method="post">
+    {% csrf_token %}
+    <div class="form-wrapper">
+        <label>Nom d'utilisateur</label>
+        <input maxlength="100" minlength="5" name="username" placeholder="Nom d'utilisateur">
+    </div>
+    <div class="form-wrapper">
+        <label>Mot de passe</label>
+        <input minlength="5" name="password" placeholder="Mot de passe du compte">
+    </div>
+    <div class="form-wrapper">
+        <input maxlength="100" minlength="5"
+               name="submit" type="submit" value="créer un compte">
+    </div>
+</form>
+{% endblock %}
